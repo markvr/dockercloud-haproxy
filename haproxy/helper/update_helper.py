@@ -53,7 +53,9 @@ def run_reload(old_process, timeout = int(RELOAD_TIMEOUT)):
 
 def wait_pid(process, timeout):
     start = time.time()
-
+    
+    timer = None
+    
     if timeout > 0:
       timer = threading.Timer(timeout, timeout_handler, [process] )
       timer.start()

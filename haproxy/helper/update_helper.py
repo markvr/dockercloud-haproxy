@@ -26,10 +26,10 @@ def run_reload(old_process, timeout = int(RELOAD_TIMEOUT)):
         logger.info("Reloading HAProxy")
         if timeout == -1:
           flag = "-st"
-          logging.info("Restarting HAProxy immediately")
+          logger.info("Restarting HAProxy immediately")
         else:
           flag = "-sf"
-          logging.info("Restarting HAProxy gracefully")
+          logger.info("Restarting HAProxy gracefully")
         
         new_process = subprocess.Popen(HAPROXY_RUN_COMMAND + [flag, str(old_process.pid)])
         logger.info("HAProxy is reloading (new PID: %s)", str(new_process.pid))

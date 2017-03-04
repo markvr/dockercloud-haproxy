@@ -85,6 +85,7 @@ STATS_PORT = os.getenv("STATS_PORT", "1936")
 TIMEOUT = os.getenv("TIMEOUT", "connect 5000, client 50000, server 50000")
 NBPROC = int(os.getenv("NBPROC", 1))
 SWARM_MODE_POLLING_INTERVAL = int(os.getenv("SWARM_MODE_POLLING_INTERVAL", 5))
+RELOAD_TIMEOUT = os.getenv("RELOAD_TIMEOUT", "0")
 
 # global
 RUNNING_MODE = None

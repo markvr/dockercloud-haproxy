@@ -61,7 +61,7 @@ def parse_additional_backend_settings(envvars):
                 server = match.group(1)
                 settings.extend([x.strip().replace("\,", ",") for x in re.split(r'(?<!\\),', v.strip())])
             elif file_match:
-                port = file_match.group(1)
+                server = file_match.group(1)
                 try:
                     with open(v) as file:
                         for line in file:

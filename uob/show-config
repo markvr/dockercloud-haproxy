@@ -1,0 +1,3 @@
+docker exec $(docker ps -f "name=webapps_haproxy" -q) cat haproxy.cfg
+echo
+echo

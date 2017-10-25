@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+# The tests get a bit upset/confused with having a filesystem shared with the vagrant 
+# (i.e. Windows) host, so we copy them to a non-shared location and run them
+
+rsync -r /vagrant/ /vagrant-local
+rm /usr/lib/python2.7/site-packages/dockercloud_haproxy-1.6.7-py2.7.egg
+
+cd /vagrant-local
+
+echo ======================== Unit Test ==========================
+pip install -r requirements.txt
+pip install -r test-requirements.txt
+python setup.py install
+nosetests --exe -v --with-coverage --cover-package haproxy

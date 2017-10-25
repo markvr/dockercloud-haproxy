@@ -1,0 +1,16 @@
+if [ -z $1 ]; then
+  echo "You must supply the IP address of the interface to advertise the swarm on"
+  echo "This probably starts 172."
+  exit
+fi
+
+docker swarm leave --force &> /dev/null
+docker swarm init --advertise-addr $1
+
+docker build -t uobhaproxy ../
+
+docker stack deploy -c webapp-stack.xml webapps
+
+sleep 5
+
+docker exec $(docker ps -f "name=webapps_haproxy" -q) cat haproxy.cfg

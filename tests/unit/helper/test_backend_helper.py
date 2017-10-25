@@ -135,13 +135,14 @@ class BackendHelperTestCase(unittest.TestCase):
         details = {'web-a': {'force_ssl': 'True'},
                    'web-b': {'force_ssl': 'False'},
                    'web-c': {'force_ssl': ''},
-                   'web-d': {}}
-
+                   'web-d': {},
+                   'web-e': {'force_ssl': 'True', 'proxy_name': 'foo.com'}
+                 }
         self.assertEqual(["redirect scheme https code 301 if !{ ssl_fc }"], get_force_ssl_setting(details, 'web-a'))
         self.assertEqual(["redirect scheme https code 301 if !{ ssl_fc }"], get_force_ssl_setting(details, 'web-b'))
+        self.assertEqual(["redirect prefix https://foo.com code 301 if !{ ssl_fc }"], get_force_ssl_setting(details, 'web-e'))
         self.assertEqual([], get_force_ssl_setting(details, 'web-c'))
         self.assertEqual([], get_force_ssl_setting(details, 'web-d'))
-        self.assertEqual([], get_force_ssl_setting(details, 'web-e'))
 
     def test_http_check_setting(self):
         details = {'web-a': {'http_check': 'check_a'},

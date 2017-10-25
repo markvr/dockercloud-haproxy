@@ -134,6 +134,10 @@ class EnvParser(object):
         return value
 
     @staticmethod
+    def parse_proxy_name(value):
+        return value    
+        
+    @staticmethod
     def parse_balance(value):
         return value
 

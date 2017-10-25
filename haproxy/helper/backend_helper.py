@@ -1,10 +1,7 @@
-import logging
 import re
 
 from haproxy.config import HEALTH_CHECK, HTTP_BASIC_AUTH, EXTRA_ROUTE_SETTINGS
 from haproxy.utils import get_service_attribute
-
-logger = logging.getLogger("haproxy")
 
 def get_backend_section(details, routes, vhosts, service_alias, routes_added):
     backend = []
@@ -115,7 +112,7 @@ def get_force_ssl_setting(details, service_alias):
     force_ssl = get_service_attribute(details, "force_ssl", service_alias)
     proxy_name = get_service_attribute(details, "proxy_name", service_alias)
     if force_ssl:
-      if proxy_name is None:
+      if proxy_name is None or len(proxy_name) == 0:
         setting.append("redirect scheme https code 301 if !{ ssl_fc }")
       else:
         setting.append("redirect prefix https://" + proxy_name + " code 301 if !{ ssl_fc }")
